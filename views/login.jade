@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  .login
+    form(method='post', action='/login/isRight')
+      .form-group
+        .form-group
+          label(for='exampleInputPassword1') 后台密码  
+          input#exampleInputPassword1.form-control(type='password', placeholder='Password',name="password")
+        button.btn.btn-default(type='submit') Submit
