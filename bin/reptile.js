@@ -9,6 +9,11 @@ var urls = [];
 for(var i = 0; i < 434; i++) {
   urls.push("http://www.douban.com/group/asshole/discussion?start="+i*25+"&type=essence");
 }
+function getSortFun(order, sortBy) {
+  var ordAlpah = (order == 'asc') ? '>' : '<';
+  var sortFun = new Function('a', 'b', 'return a.' + sortBy + ordAlpah + 'b.' + sortBy + '?1:-1');
+  return sortFun;
+}
 var readUrl = function (url){
   return new Promise(function (resolve, reject){
     console.log("正在遍历："+url);
@@ -33,22 +38,37 @@ var readUrl = function (url){
     },delay)
   });  
 }
+
 function *getData(){
   for(let url of urls){
     var data = yield readUrl(url);
     allItems = allItems.concat(data);
   }
 }
-function getSortFun(order, sortBy) {
-  var ordAlpah = (order == 'asc') ? '>' : '<';
-  var sortFun = new Function('a', 'b', 'return a.' + sortBy + ordAlpah + 'b.' + sortBy + '?1:-1');
-  return sortFun;
-}
+
 co(getData).then(function (){
   allItems.sort(getSortFun('desc', 'num'));
-  fs.writeFile(path.join('public/demo/3', 'data.js'), JSON.stringify(allItems), function (err) {
+  fs.writeFile(path.join('../public/demo/3', 'data.js'), JSON.stringify(allItems), function (err) {
     if (err) throw err;
     console.log("Export Account Success!");
   });
 });
 
+
+// async用法，目前不支持，可以在http://findvv.com/es6/转成相应的es5代码
+//并且需要在代码开头require("babel-polyfill");
+
+
+// async function getData() {
+//    for(let url of urls){
+//     var data = await readUrl(url);
+//     allItems = allItems.concat(data);
+//   }
+// }
+// getData().then(function (){
+//   allItems.sort(getSortFun('desc', 'num'));
+//   fs.writeFile(path.join('../public/demo/3', 'data.js'), JSON.stringify(allItems), function (err) {
+//     if (err) throw err;
+//     console.log("Export Account Success!");
+//   });
+// });
