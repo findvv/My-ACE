@@ -1,6 +1,22 @@
-extends layout
+doctype html
+html
+  head
+    meta(charset='"UTF-8"')
+    title='Page Not Found'
+    link(rel='stylesheet', href='/css/bootstrap.css')
+    link(rel='stylesheet', href='/css/style.css')
+  body
+    link(rel='stylesheet', type='text/css', media='screen', href='/404/404.css')
+    script(src='/404/modernizr.js')
+    #wrapper  
+      canvas#starfield
+      #cta
+        a(href='http://www.baidu.com')
+          h1 LOST          
+          h2 IN SPACE
+    script(src='http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js')
+    script(src='/404/jquery.dotimeout.min.js')
+    script(src='/404/jquery.animate.min.js')
+    script(src='/404/404.js')
 
-block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+

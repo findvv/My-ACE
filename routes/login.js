@@ -5,7 +5,7 @@ var userDb = require('../db/userDb.js');
 router.get('/', function(req, res, next) {
   res.render('login');
 });
-router.post('/isRight', function(req, res, next) {
+router.post('/edit', function(req, res, next) {
   userDb.isRight(req, res, next);
 });
 module.exports = router;

@@ -1,9 +1,12 @@
+'use strict'
 var express = require('express');
 var router = express.Router();
-
-/* GET home page. */
+var fs = require('fs');
 router.get('/', function(req, res, next) {
-  res.render('index', { title: '2' });
-});
-
+  fs.readFile('public/js/data.js', 'utf-8', function(err, data) {
+    res.render('index', {
+      items: JSON.parse(data)
+    });
+  })
+})
 module.exports = router;
